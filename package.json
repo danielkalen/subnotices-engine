@@ -1,0 +1,27 @@
+{
+  "name": "@danielkalen/notices-engine",
+  "version": "2.3.0",
+  "description": "A simple notice and subnotice display system",
+  "main": "dist/js/notices.js",
+  "author": "danielkalen",
+  "license": "MIT",
+  "scripts": {
+    "postversion": "echo \\'$(json -f package.json version)\\' > .version.coffee && npm run build",
+    "build": "npm run compile && npm run minify",
+    "compile": "npm run compile:notices && npm run compile:subnotices",
+    "compile:notices": "simplyimport -i src/notices.coffee | coffee -c -s -b > dist/js/notices.js",
+    "compile:subnotices": "simplyimport -i src/subnotices.coffee | coffee -c -s -b > dist/js/subnotices.js",
+    "minify": "closure-service dist/js/notices.js > dist/js/notices.min.js && closure-service dist/js/subnotices.js > dist/js/subnotices.min.js",
+    "watch": "simplywatch -g 'src/*' -x 'npm run compile -s'"
+  },
+  "devDependencies": {
+    "closure-compiler-service": "^0.5.0",
+    "coffee-script": "^1.10.0",
+    "simplyimport": "*",
+    "simplywatch": "*",
+    "uglify": "*"
+  },
+  "dependencies": {
+    "jquery.transit": "^0.9.12"
+  }
+}

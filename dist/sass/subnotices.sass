@@ -1,0 +1,94 @@
+@import '_vars'
+
+.Subnotices
+	position: fixed
+	z-index: 10000
+	left: 0
+	width: 100%
+	&.direction--bottom
+		bottom: 0
+	&.direction--top
+		top: 0
+
+.Subnotice
+	position: absolute
+	bottom: 0
+	opacity: 0
+	width: 100%
+	padding: 13px 45px 10px
+	color: white
+	box-sizing: border-box
+	&.show
+		opacity: 1
+	@for $i from 1 through 20
+		&.index--#{20-$i}
+			z-index: $i
+	
+	&_success
+		background-color: $success
+	&_error
+		background-color: $error-dark
+	&_warning
+		background-color: $warning
+	&_info
+		background-color: $grey
+		color: #313131
+
+
+	&-text
+		font-size: 15px
+		font-weight: 500
+		line-height: 1
+		span
+			font-weight: 700
+
+
+
+
+	&-close
+		position: absolute
+		right: 10px
+		+valign
+
+		&:after
+			content: attr(data-icon)
+			position: relative
+			display: block
+			font-size: 15px
+			line-height: 1
+			cursor: pointer
+
+
+
+
+	&:before // Notice Icon
+		content: attr(data-icon)
+		position: absolute
+		+valign(50%)
+		left: 14px
+		+size(20)
+		background-color: white
+		border-radius: 50%
+		font-size: 11px
+		line-height: 20px
+		text-align: center
+		color: white
+		box-sizing: border-box
+
+
+	&_success:before
+		color: $success
+	&_error:before
+		color: $error-dark
+	&_warning:before
+		color: $warning
+	&_info:before
+		color: $grey
+		background-color: #313131
+
+
+
+
+	a // links
+		color: #000
+

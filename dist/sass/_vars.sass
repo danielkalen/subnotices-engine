@@ -1,0 +1,137 @@
+$grey: #a2a3a5
+$error: #cc4820
+$error-dark: #95190c
+$success: #72c322
+$success-dark: #4cb944
+$info: #c6c5c5
+$warning: #e3b505
+
+
+=center($top: 0, $bottom: 0, $important: '')
+	@if $top == 0 and $bottom == 0
+		@if $important != ''
+			margin: 0 auto !important 
+		@else
+			margin: 0 auto
+	@else
+		@if $important != ''
+			margin: #{$top} auto #{$bottom} !important
+		@else
+			margin: #{$top} auto #{$bottom}
+
+=valign($top: 50%)
+	top: $top
+	-webkit-transform: translateY(-50%)
+	-moz-transform: translateY(-50%)
+	-ms-transform: translateY(-50%)
+	-o-transform: translateY(-50%)
+	transform: translateY(-50%)
+
+=halign($left: 50%)
+	left: $left
+	-webkit-transform: translateX(-50%)
+	-moz-transform: translateX(-50%)
+	-ms-transform: translateX(-50%)
+	-o-transform: translateX(-50%)
+	transform: translateX(-50%)
+
+=balign($top: 50%, $left: 50%)
+	top: $top
+	left: $left
+	-webkit-transform: translateX(-50%) translateY(-50%)
+	-moz-transform: translateX(-50%) translateY(-50%)
+	-ms-transform: translateX(-50%) translateY(-50%)
+	-o-transform: translateX(-50%) translateY(-50%)
+	transform: translateX(-50%) translateY(-50%)
+
+=unvalign
+	top: 0
+	-webkit-transform: translateY(0)
+	-o-transform: translateY(0)
+	transform: translateY(0)
+
+=ratio($percentual-height, $content-fix:true, $position:relative)
+	position: $position
+	display: block
+	vertical-align: top
+	&:after
+		padding-top: $percentual-height
+		content: ''
+		display: block
+
+	@if $content-fix == true // Content
+		> *
+			position: absolute
+			top: 0
+			left: 0
+			bottom: 0
+			right: 0
+
+=size($width, $height: $width)
+	width: #{$width}px
+	height: #{$height}px
+
+=inheritSize($width:true, $height: true)
+	@if $width
+		width: 100%
+	@if $height
+		height: 100%	
+
+=clearfix
+	&:before,
+	&:after
+		content: ""
+		display: table
+	&:after
+		clear: both
+
+=ellipsis($width: 100%)
+	display: inline-block
+	max-width: $width
+	overflow: hidden
+	text-overflow: ellipsis
+	white-space: nowrap
+	word-wrap: normal
+
+=hyphens($opt)
+	-webkit-hyphens: $opt
+	-moz-hyphens: $opt
+	-o-hyphens: $opt
+	hyphens: $opt
+
+=user-select($opt, $disableLong:false)
+	-webkit-user-select: $opt
+	-khtml-user-select: $opt
+	-moz-user-select: $opt
+	-ms-user-select: $opt
+	user-select: $opt
+	@if $disableLong
+		-webkit-touch-callout: $opt
+		-khtml-touch-callout: $opt
+		-moz-touch-callout: $opt
+		-ms-touch-callout: $opt
+		touch-callout: $opt
+
+
+=transform($transforms) 
+	-moz-transform: $transforms
+	-o-transform: $transforms
+	-ms-transform: $transforms
+	-webkit-transform: $transforms
+	transform: $transforms
+
+=transform-origin($transforms) 
+	-moz-transform-origin: $transforms
+	-o-transform-origin: $transforms
+	-ms-transform-origin: $transforms
+	-webkit-transform-origin: $transforms
+	transform-origin: $transforms
+
+
+=transitionTransform($time:0.25s, $additional:false)
+	// $transformTransition: transform $time, -ms-transform $time, -moz-transform $time, -webkit-transform $time
+	$transformTransition: transform $time, -webkit-transform $time
+	@if $additional
+		transition: $transformTransition, $additional
+	@else
+		transition: $transformTransition
