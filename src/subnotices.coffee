@@ -1,30 +1,67 @@
-import '_parts/jquery.transit.js'
-
 do ($=jQuery)->	
-	###*
-	 * Public function to create a subnotice
-	 * @param 	{string}	type				info | success | error | warning
-	 * @return 	{object}	subnotice			A subnotice object
-	###
-	subnotify = ({type='info', title='', text='', time=10000, delay=250, browserNotice=false, context=subnotify.context, direction=subnotify.direction, icons=subnotify.icons})->
-		markup = "<div class='Subnotice Subnotice_#{type}' data-icon='#{icons[type]}'>
-					<div class='Subnotice-text'>#{text}</div>
-					<div class='Subnotice-close' data-icon='#{icons.close}'></div>
-				 </div>"
-		
-		subnotice = new Subnotice(markup, context, direction, delay)
-		subnotice.destroy(time)
+	import '_parts/helpers.coffee'
+	import '_parts/styles.coffee'
+	import '_parts/markup.coffee'
+	import '_parts/Subnotice.coffee'
+	import '_parts/BrowserNotice.coffee'
+
+	subnotify = ({type='info', title='', text='', time=Subnotice.time, delay=Subnotice.delay, extraClassnames, browserNotice})->
+		subnotice = new Subnotice {type, text, time, extraClassnames}
 
 		if browserNotice
 			new BrowserNotice {title, text}
 
+		setTimeout ()->
+			subnotice.reveal()
+		, delay
+
 		return subnotice
 
 
-	import '_parts/subnotices-Subnotice.coffee'
-	import '_parts/subnotices-BrowserNotice.coffee'
-	import '_parts/subnotices-defaults.coffee'
 
+
+
+
+		
 	Subnotice.version = import '../.version.coffee'
+	Subnotice.markup = markup
+	Subnotice.style = style
+	Subnotice.styleOpenState = styleOpenState
+	Subnotice.instances = []
+	Subnotice.direction = 'bottom'
+	Subnotice.clickEvent = 'click'
+	Subnotice.animationSpeed = 300
+	Subnotice.time = 10000
+	Subnotice.delay = 250
+	Subnotice.context = document.body
+	Subnotice.requiresDarkText =
+		'info': true
+	
+	Subnotice.colorMapping = 
+		'info': 'grey'
+		'success': 'green'
+		'error': 'red'
+		'warning': 'yellow'
+	
+	Subnotice.colors =
+		'light': '#ffffff'
+		'dark': '#313131'
+		# 'dark': '#181818'
+		'green': '#72c322'
+		'red': '#95190c'
+		'yellow': '#e3b505'
+		'grey': '#a2a3a5'
+	
+	Subnotice.icons =
+		'info': ''
+		'success': ''
+		'error': ''
+		'warning': ''
+		'close': ''
+	
+	
 	window.subnotify = subnotify
-	subnotify.Subnotice = Subnotice
+	window.Subnotice = Subnotice
+
+
+
