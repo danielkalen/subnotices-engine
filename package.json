@@ -3,6 +3,10 @@
   "version": "3.1.0",
   "description": "A simple notice and subnotice display system",
   "main": "dist/subnotices.js",
+  "browser": {
+    "./debug": "./dist/subnotices.debug.js",
+    "./dist/subnotices.js": "./src/index.coffee"
+  },
   "repository": "https://github.com/danielkalen/subnotices-engine",
   "author": "danielkalen",
   "license": "MIT",
@@ -10,8 +14,8 @@
     "postversion": "npm run build && git add . && git commit -m '[Build]'",
     "postpublish": "git push",
     "build": "npm run compile && npm run minify",
-    "compile": "simplyimport bundle -d --umd notify src/index.coffee > dist/subnotices.js",
-    "minify": "closure-service dist/subnotices.js > dist/subnotices.min.js",
+    "compile": "simplyimport bundle -d --umd notify src/index.coffee > dist/subnotices.debug.js",
+    "minify": "closure-service dist/subnotices.debug.js > dist/subnotices.js",
     "watch": "simplywatch -g 'src/*' -x 'npm run compile -s'"
   },
   "devDependencies": {
